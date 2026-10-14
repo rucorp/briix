@@ -76,7 +76,8 @@
     out.payback.textContent = fmtNum(Math.min(payback, 99), 1) + ' мес';
     out.breakeven.textContent = Math.ceil(breakeven).toLocaleString('ru-RU').replace(/,/g, ' ');
     out.mrr.textContent = fmtMoney(mrr) + ' · ' + (op >= 0 ? '+' : '−') + fmtMoney(Math.abs(op));
-    out.mrr.style.color = op >= 0 ? '#7fe6ac' : '#ffb38a';
+    out.mrr.classList.toggle('up', op >= 0);
+    out.mrr.classList.toggle('down', op < 0);
 
     if (clients >= breakeven) {
       out.note.textContent = 'операционная безубыточность достигнута';
