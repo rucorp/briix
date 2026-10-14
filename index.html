@@ -8,6 +8,21 @@
 <meta property="og:title" content="BRIIX — ваш бренд на автопилоте">
 <meta property="og:description" content="Вставьте адрес сайта — через 90 секунд увидите свои первые посты в фирменном стиле.">
 <meta property="og:type" content="website">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#faf7f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f0c09" media="(prefers-color-scheme: dark)">
+<script>
+  /* Без мигания: тема ставится до загрузки CSS */
+  (function () {
+    try {
+      var t = localStorage.getItem('briix-theme');
+      if (t !== 'light' && t !== 'dark') {
+        t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  })();
+</script>
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/inter-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/manrope-cyrillic-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -32,6 +47,10 @@
     <div class="header-cta">
       <a class="btn btn-ghost" href="#demo">Смотреть демо</a>
       <a class="btn btn-primary" href="#demo">Показать мои посты</a>
+      <button class="theme-toggle" type="button" aria-label="Переключить тему" title="Переключить тему">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
     </div>
     <button class="burger" aria-label="Меню"><span></span></button>
   </div>
@@ -87,10 +106,10 @@
           <button class="btn btn-primary" type="submit">Показать мои посты</button>
         </form>
         <div class="demo-hint">
-          Нечем попробовать? Возьмите пример:
+          Готовые демо-бренды с полным контентом:
           <button class="try" data-try-domain="nordhavn-studio.com">nordhavn-studio.com</button>
           <button class="try" data-try-domain="vela-clinic.com">vela-clinic.com</button>
-          <button class="try" data-try-domain="atelier-uno.com">atelier-uno.com</button>
+          <button class="try" data-try-domain="lumina-skin.com">lumina-skin.com</button>
         </div>
       </div>
 
@@ -112,13 +131,25 @@
         <div class="preview-wrap" style="margin-top:14px">
           <div class="brand-card" id="demo-brand"></div>
           <div class="posts-grid" id="demo-posts"></div>
+          <div class="plan-teaser" id="demo-plan" hidden>
+            <div class="pt-head">
+              <b>Контент-план: 50+ идей на месяц</b>
+              <span>ещё 44 идеи в очереди</span>
+            </div>
+            <div class="pt-items">
+              <div class="pt-item"><i class="pt-num">07</i><div><b>Сезонный гид: что важно знать в этом месяце</b><span>Экспертный · карусель · вторник</span></div></div>
+              <div class="pt-item"><i class="pt-num">08</i><div><b>Отвечаем на частый вопрос о ценах</b><span>FAQ · пост · четверг</span></div></div>
+              <div class="pt-item locked"><i class="pt-num">09</i><div><b>Идея, которая станет вашей визитной карточкой</b><span>История · пост · суббота</span></div></div>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="demo-footer">
         <div class="note">Демо-превью. Реальный BRIIX создаёт посты по данным именно вашего сайта.</div>
-        <div style="display:flex;gap:8px">
-          <button class="btn btn-ghost" id="demo-restart" style="padding:12px 18px;font-size:14.5px">Ещё раз</button>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-ghost" id="demo-restart" style="padding:12px 18px;font-size:14.5px">Показать ещё раз</button>
+          <button class="btn btn-ghost" id="demo-change" style="padding:12px 18px;font-size:14.5px">Другой сайт</button>
           <a class="btn btn-dark" href="#pricing" data-cta-toast>Открыть все 50 идей</a>
         </div>
       </div>
@@ -140,9 +171,9 @@
 <section class="section" id="problem">
   <div class="container">
     <div class="section-head reveal">
-      <div class="eyebrow">Проблема</div>
-      <h2 class="section-title">Соцсети знают все.<br>Ведут их — единицы</h2>
-      <p class="section-sub">Малый бизнес попадает в пять ловушек одновременно. Результат один: присутствие случайное, а не системное.</p>
+      <div class="eyebrow">Знакомо?</div>
+      <h2 class="section-title">Пять причин, почему соцсети бизнеса «не идут»</h2>
+      <p class="section-sub">Малый бизнес знает, что вести их нужно — но каждый раз всё упирается в одно и то же. Результат один: присутствие случайное, а не системное.</p>
     </div>
     <div class="problem-wrap reveal">
       <div class="trap-card"><div class="n">01</div><h3>Нет времени</h3><p>Владелец занят операционкой, а SMM всегда «последним делом». Месяц за месяцем.</p></div>
@@ -150,22 +181,22 @@
       <div class="trap-card"><div class="n">03</div><h3>Нет бюджета на помощь</h3><p>Внешняя команда стоит $800–3 000 в месяц — при отдаче, которую невозможно контролировать.</p></div>
       <div class="trap-card"><div class="n">04</div><h3>«Некрасиво» без дизайнера</h3><p>Шаблонные картинки чужих стоков, стыдно публиковать. Бренд неузнаваем в ленте.</p></div>
       <div class="trap-card"><div class="n">05</div><h3>Нерегулярность</h3><p>Ведут две недели и бросают — главный убийца охватов. Постоянство важнее таланта.</p></div>
-      <div class="trap-card" style="background:var(--bg-deep)"><div class="n" style="background:#fff">→</div><h3>Пока вы паузуете</h3><p>тот, кто публикует регулярно, спокойно забирает ваших клиентов — без лишних усилий.</p></div>
+      <div class="trap-card" style="background:var(--bg-deep)"><div class="n" style="background:var(--card)">→</div><h3>Что происходит дальше</h3><p>Пока вы паузуете, тот, кто публикует регулярно, спокойно забирает ваших клиентов — без лишних усилий.</p></div>
     </div>
     <div class="problem-solution reveal">
       <div class="arrow-ico">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </div>
       <div>
-        <h3>BRIIX закрывает все пять ловушек одним входом — ссылкой на ваш сайт</h3>
-        <p>Ноль форм на старте. Ноль звонков. Ноль затрат вашего времени на идеи и дизайн. Только результат: готовые посты в фирменном стиле, которые вы одобряете за 10 минут в неделю.</p>
+        <h3>BRIIX — AI-маркетолог, который включается одной ссылкой на ваш сайт</h3>
+        <p>Он изучает бизнес, находит темы, пишет тексты, рисует визуал в фирменном стиле и публикует по расписанию — без анкет, звонков и брифов на старте. Ваше участие — 10 минут в неделю: посмотреть готовое и одобрить. Или включить автопилот — и не тратить время вовсе.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ================= HOW IT WORKS ================= -->
-<section class="section" id="how" style="background:#fff;border-block:1px solid var(--line)">
+<section class="section" id="how" style="background:var(--surface);border-block:1px solid var(--line)">
   <div class="container">
     <div class="section-head center reveal">
       <div class="eyebrow">Как это работает</div>
@@ -550,13 +581,13 @@
               <svg viewBox="0 0 420 110" width="100%" height="110" preserveAspectRatio="none" aria-hidden="true">
                 <defs>
                   <linearGradient id="agrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0" stop-color="#5338f2" stop-opacity=".28"/>
-                    <stop offset="1" stop-color="#5338f2" stop-opacity="0"/>
+                    <stop offset="0" stop-color="var(--accent)" stop-opacity=".28"/>
+                    <stop offset="1" stop-color="var(--accent)" stop-opacity="0"/>
                   </linearGradient>
                 </defs>
                 <path d="M0 92 C40 88, 60 78, 90 76 S150 70, 180 58 S250 46, 290 36 S370 22, 420 14 L420 110 L0 110 Z" fill="url(#agrad)"/>
-                <path d="M0 92 C40 88, 60 78, 90 76 S150 70, 180 58 S250 46, 290 36 S370 22, 420 14" fill="none" stroke="#5338f2" stroke-width="2.5" stroke-linecap="round"/>
-                <circle cx="290" cy="36" r="4.5" fill="#fff" stroke="#5338f2" stroke-width="2.5"/>
+                <path d="M0 92 C40 88, 60 78, 90 76 S150 70, 180 58 S250 46, 290 36 S370 22, 420 14" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"/>
+                <circle cx="290" cy="36" r="4.5" fill="var(--card)" stroke="var(--accent)" stroke-width="2.5"/>
               </svg>
             </div>
             <div class="insight">
@@ -666,7 +697,7 @@
 </section>
 
 <!-- ================= AUDIENCE ================= -->
-<section class="section" id="audience" style="background:#fff;border-block:1px solid var(--line)">
+<section class="section" id="audience" style="background:var(--surface);border-block:1px solid var(--line)">
   <div class="container">
     <div class="section-head center reveal">
       <div class="eyebrow">Кому это нужно</div>
@@ -710,7 +741,7 @@
         <p>Больше брендов — без пропорционального роста рутины. Каждый клиент получает свой стиль.</p>
       </div>
       <div class="aud-card" style="background:var(--bg-deep)">
-        <div class="ico" style="background:#fff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg></div>
+        <div class="ico" style="background:var(--card)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg></div>
         <h3>Любой бизнес с сайтом</h3>
         <p>Если у вас есть сайт — у вас уже достаточно данных для первого месяца контента.</p>
       </div>
@@ -840,7 +871,7 @@
 </section>
 
 <!-- ================= FAQ ================= -->
-<section class="section" id="faq" style="background:#fff;border-top:1px solid var(--line)">
+<section class="section" id="faq" style="background:var(--surface);border-top:1px solid var(--line)">
   <div class="container">
     <div class="section-head center reveal">
       <div class="eyebrow">Вопросы</div>
@@ -940,11 +971,43 @@
   </div>
 </footer>
 
+<!-- Post detail modal (demo) -->
+<div class="demo-modal" id="post-modal" hidden>
+  <div class="demo-modal-backdrop" data-close-modal></div>
+  <div class="demo-modal-panel" role="dialog" aria-modal="true" aria-labelledby="pm-title">
+    <button class="demo-modal-close" type="button" data-close-modal aria-label="Закрыть">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="demo-modal-grid">
+      <div class="pm-visual" id="pm-visual"></div>
+      <div class="pm-content">
+        <div class="pm-rubric" id="pm-rubric"></div>
+        <h3 id="pm-title">Пост</h3>
+        <div class="pm-tabs" role="tablist" aria-label="Адаптация под канал">
+          <button class="pm-tab on" type="button" data-channel="feed" role="tab">Лента</button>
+          <button class="pm-tab" type="button" data-channel="biz" role="tab">Деловая сеть</button>
+          <button class="pm-tab" type="button" data-channel="chat" role="tab">Канал</button>
+        </div>
+        <div class="pm-caption" id="pm-caption"></div>
+        <div class="pm-tags" id="pm-tags"></div>
+        <div class="pm-cta" id="pm-cta"></div>
+        <div class="pm-actions">
+          <button class="btn btn-primary pm-act" type="button" data-toast="Одобрение поста">Одобрить</button>
+          <button class="btn btn-ghost pm-act" type="button" data-toast="Правка в чате">Править в чате</button>
+          <button class="btn btn-ghost pm-act" type="button" data-toast="Designer">Открыть Designer</button>
+        </div>
+        <div class="pm-note">Это демо-превью. В BRIIX здесь — редактор, версии и публикация по расписанию.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Toast -->
-<div id="toast" hidden style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:100;background:var(--ink);color:#fff;padding:15px 26px;border-radius:999px;font-size:14.5px;font-weight:650;box-shadow:var(--shadow-l);opacity:0;transition:opacity .35s ease;max-width:92vw;text-align:center">
+<div id="toast" hidden style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:100;background:var(--panel-bg);color:var(--panel-ink);padding:15px 26px;border-radius:999px;font-size:14.5px;font-weight:650;box-shadow:var(--shadow-l);opacity:0;transition:opacity .35s ease;max-width:92vw;text-align:center">
   Это демонстрационный лендинг: форма регистрации подключается при запуске продукта.
 </div>
 
+<script src="assets/js/theme.js"></script>
 <script src="assets/js/landing.js"></script>
 </body>
 </html>
