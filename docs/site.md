@@ -2,6 +2,8 @@
 
 Статический сайт без сборки: открывается любым статик-хостингом (GitHub Pages, Netlify, nginx, `python -m http.server`).
 
+Опубликован: **https://rucorp.github.io/briix/** — ветка `main`, корень репозитория, все пути внутри относительные.
+
 ## Структура
 
 | Файл | Назначение | Видимость |
@@ -34,7 +36,7 @@
 ## Локальный запуск
 
 ```bash
-cd site
+git clone https://github.com/rucorp/briix.git && cd briix
 python3 -m http.server 8080
 # → http://localhost:8080
 ```
