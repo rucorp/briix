@@ -615,6 +615,10 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 .post-mini:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 .post-mini .pm-canvas { aspect-ratio: 1 / 1; position: relative; overflow: hidden; }
 .post-mini .pm-meta { padding: 9px 11px 11px; }
+.post-mini .pm-excerpt {
+  margin-top: 5px; font-size: 11.5px; line-height: 1.5; color: var(--ink-2);
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
 .post-mini .pm-tag { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
 .post-mini .pm-title { font-size: 12px; font-weight: 650; color: var(--ink); line-height: 1.35; margin-top: 2px; }
 .post-mini .wm {

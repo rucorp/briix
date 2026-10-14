@@ -71,6 +71,16 @@
       desc: 'Архитектурные интерьеры с северным характером: свет, натуральные материалы и спокойные сценарии жизни',
       tone: ['Тон: спокойный, тёплый', 'Архетип: Помощник', 'Аудитория: семьи 30–45', 'Формат: кейсы + разборы'],
       palette: ['#2C3A35', '#7D8F7C', '#C9A46A', '#F4F1EA', '#1C2420'],
+      schedule: 'Ритм: 3 поста в неделю · вт/чт/сб',
+      channels: 'Instagram · Facebook · LinkedIn · Telegram',
+      plan: [
+        ['Сезон в интерьере: как меняется свет к осени', 'Экспертный · карусель · вторник'],
+        ['Проект у залива: тур по готовой квартире', 'Кейс · карусель · четверг'],
+        ['Материалы месяца: орех, лён, матовая латунь', 'Обзор · пост · суббота'],
+        ['День на объекте: как проходит монтаж', 'Закулисье · карусель · вторник'],
+        ['Сколько длится дизайн-проект: честный таймлайн', 'FAQ · пост · четверг'],
+        ['Три светильника, которые мы выбираем этой осенью', 'Подборка · пост · суббота'],
+      ],
       posts: [
         {
           tag: 'Экспертный', chip: 'Совет недели', dark: true, art: ['#2C3A35', '#5C7066'],
@@ -140,6 +150,16 @@
       desc: 'Спокойная стоматология без страха и давления: честные консультации, бережный подход, забота о семье',
       tone: ['Тон: заботливый, честный', 'Архетип: Опекун', 'Аудитория: семьи с детьми', 'Запрет: обещания лечения'],
       palette: ['#20505C', '#7FA9B2', '#E8A87C', '#F2F7F8', '#16323A'],
+      schedule: 'Ритм: 3 поста в неделю · пн/чт/сб',
+      channels: 'Instagram · Facebook · LinkedIn · Telegram',
+      plan: [
+        ['Мифы о профессиональной чистке: отвечает врач', 'Экспертный · пост · вторник'],
+        ['Кейс: восстановление улыбки (с согласия пациента)', 'Кейс · карусель · четверг'],
+        ['Как выбрать зубную щётку: короткий гид', 'Гид · пост · суббота'],
+        ['Знакомство с командой: наш ортодонт', 'Команда · пост · вторник'],
+        ['Вопрос недели: можно ли отбелить эмаль дома', 'FAQ · пост · четверг'],
+        ['Напоминание: профилактика раз в полгода', 'Сервис · пост · суббота'],
+      ],
       posts: [
         {
           tag: 'FAQ', chip: 'FAQ', dark: true, art: ['#20505C', '#4A7A87'],
@@ -209,6 +229,16 @@
       desc: 'Честный уход без обещаний чудес: понятные текстуры, деликатные формулы и ритуалы, которые хочется повторять',
       tone: ['Тон: тёплый, лёгкий', 'Архетип: Создатель', 'Аудитория: женщины 25–40', 'Формат: ритуалы + гайды'],
       palette: ['#8E3B5D', '#E8B4A8', '#F6E8E4', '#C9A227', '#2A1A22'],
+      schedule: 'Ритм: 3 поста в неделю · вт/чт/сб',
+      channels: 'Instagram · Facebook · LinkedIn · Telegram',
+      plan: [
+        ['Сезонный уход: что меняем в ритуале осенью', 'Экспертный · карусель · вторник'],
+        ['История клиента: путь к своей коже', 'История · пост · четверг'],
+        ['Разбор состава: зачем нужен ниацинамид', 'Познавательный · пост · суббота'],
+        ['Как рождается баночка: путь продукта', 'Закулисье · карусель · вторник'],
+        ['Частый вопрос: как подобрать уход онлайн', 'FAQ · пост · четверг'],
+        ['Подарок к заказам в этом месяце', 'Анонс · пост · суббота'],
+      ],
       posts: [
         {
           tag: 'Продающий', chip: 'Новинка', dark: true, art: ['#8E3B5D', '#B85E7F'],
@@ -283,6 +313,16 @@
       desc: fill('Профиль {brand} восстановлен по сайту: тон общения, аудитория и ключевые темы — всё готово для контента'),
       tone: ['Тон: уверенный, дружелюбный', 'Архетип: Помощник', 'Аудитория: клиенты бренда', 'Проверка фактов: пройдена'],
       palette,
+      schedule: 'Ритм: 3 поста в неделю · пн/чт/сб',
+      channels: 'Instagram · Facebook · LinkedIn · Telegram',
+      plan: [
+        [fill('Кейс месяца: история одного клиента {brand}'), 'Кейс · карусель · вторник'],
+        ['Разбор: как мы подходим к работе', 'Экспертный · пост · четверг'],
+        ['Закулисье: наш процесс изнутри', 'Закулисье · пост · суббота'],
+        ['Ответ на частый вопрос клиентов', 'FAQ · пост · вторник'],
+        ['Отзыв, который вдохновил команду', 'Отзыв · пост · четверг'],
+        [fill('Анонс: что нового в {brand}'), 'Анонс · пост · суббота'],
+      ],
       posts: [
         {
           tag: 'Экспертный', chip: 'Совет недели', dark: true, art: [palette[0], palette[1]],
@@ -408,6 +448,8 @@
   const planTeaser = document.getElementById('demo-plan');
 
   let currentBrand = null;
+  let lastDomain = 'nordhavn-studio.com';
+  const WHEN = ['Пн, 10:00', 'Вт, 13:30', 'Ср, 11:00', 'Чт, 10:00', 'Пт, 14:00', 'Сб, 12:00'];
 
   function renderPreview(domain) {
     const brand = brandFor(domain);
@@ -427,7 +469,7 @@
           </div>
           <div class="dna-chips"><span class="dna-chip accent">Self-check пройден</span></div>
         </div>
-        <div class="dna-chips">${brand.tone.map((t) => `<span class="dna-chip">${t}</span>`).join('')}</div>
+        <div class="dna-chips">${brand.tone.map((t) => `<span class="dna-chip">${t}</span>`).join('')}<span class="dna-chip">${brand.schedule || ''}</span></div>
         <div class="palette-row">
           ${p.map((c) => `<span class="sw" style="background:${c}"></span>`).join('')}
           <span class="lbl">${brand.desc}</span>
@@ -450,8 +492,9 @@
             </div>
           </div>
           <div class="pm-meta">
-            <div class="pm-tag">${post.tag}</div>
+            <div class="pm-tag">${post.tag} · ${WHEN[i % WHEN.length]}</div>
             <div class="pm-title">${post.title}</div>
+            <div class="pm-excerpt">${(post.caption.split('\n')[0] || '')}</div>
           </div>
         </article>`;
       }).join('');
@@ -459,6 +502,11 @@
 
     if (planTeaser) {
       planTeaser.hidden = false;
+      const ptItems = planTeaser.querySelector('.pt-items');
+      if (ptItems && brand.plan) {
+        ptItems.innerHTML = brand.plan.map((row, idx) => `
+          <div class="pt-item${idx > 4 ? ' locked' : ''}"><i class="pt-num">${String(7 + idx).padStart(2, '0')}</i><div><b>${row[0]}</b><span>${row[1]}</span></div></div>`).join('');
+      }
     }
   }
 
@@ -471,6 +519,7 @@
   const modalTags = document.getElementById('pm-tags');
   const modalCta = document.getElementById('pm-cta');
   let modalPost = null;
+  let modalWhen = '';
   let modalChannel = 'feed';
 
   function renderModal() {
@@ -490,7 +539,8 @@
           <span class="wm" style="top:12px;right:12px">Превью BRIIX</span>
         </div>`;
     }
-    if (modalRubric) modalRubric.innerHTML = `<span class="dna-chip accent">${modalPost.tag}</span><span class="dna-chip">Карусель до 4 слайдов</span><span class="dna-chip">Фактчек пройден</span><span class="dna-chip">4 формата</span>`;
+    const ch = (currentBrand && currentBrand.channels) || 'Instagram · Facebook · LinkedIn · Telegram';
+    if (modalRubric) modalRubric.innerHTML = `<span class="dna-chip accent">${modalPost.tag}</span><span class="dna-chip">Календарь: ${modalWhen}</span><span class="dna-chip">Каналы: ${ch}</span><span class="dna-chip">Фактчек пройден</span>`;
     if (modalTitle) modalTitle.textContent = modalPost.title;
     if (modalCaption) modalCaption.textContent = variants[modalChannel] || modalPost.caption;
     if (modalTags) modalTags.innerHTML = modalPost.tags.map((t) => `<span>${t}</span>`).join('');
@@ -503,6 +553,7 @@
   function openModal(index) {
     if (!modal || !currentBrand) return;
     modalPost = currentBrand.posts[index];
+    modalWhen = WHEN[index % WHEN.length];
     modalChannel = 'feed';
     renderModal();
     modal.hidden = false;
@@ -582,6 +633,7 @@
   function runDemo(domain) {
     if (running) return;
     running = true;
+    lastDomain = domain;
 
     hide(demoIdle);
     hide(demoResult);
@@ -589,7 +641,11 @@
     if (demoUrlChip) demoUrlChip.textContent = domain;
     if (demoDomainOut) demoDomainOut.textContent = domain;
 
-    stepsEl.forEach((s) => s.classList.remove('active', 'done'));
+    stepsEl.forEach((s) => {
+      s.classList.remove('active', 'done');
+      const mark = s.querySelector('.mark');
+      if (mark) mark.textContent = '';
+    });
 
     const durations = [850, 900, 850, 950, 1150];
     let t = 350;
@@ -650,9 +706,28 @@
     });
   });
 
+  /* Автопоказ: демо всегда заполнено реальным контентом, как только его увидели */
+  const demoCard = document.querySelector('.demo-card');
+  if (demoCard && 'IntersectionObserver' in window) {
+    const dio = new IntersectionObserver((entries) => {
+      if (entries.some((en) => en.isIntersecting) && demoIdle && !demoIdle.hidden && !running) {
+        dio.disconnect();
+        runDemo('nordhavn-studio.com');
+      }
+    }, { threshold: 0.2 });
+    dio.observe(demoCard);
+  }
+
   const restartBtn = document.getElementById('demo-restart');
   if (restartBtn) {
     restartBtn.addEventListener('click', () => {
+      runDemo(lastDomain);
+    });
+  }
+
+  const changeBtn = document.getElementById('demo-change');
+  if (changeBtn) {
+    changeBtn.addEventListener('click', () => {
       hide(demoGen);
       hide(demoResult);
       if (planTeaser) planTeaser.hidden = true;
