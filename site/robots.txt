@@ -1,0 +1,10 @@
+# Публичные страницы
+Allow: /
+Allow: /index.html
+
+# Скрытые разделы: доступны только по прямой ссылке
+Disallow: /presentation.html
+Disallow: /investors/
+Disallow: /fin-model/
+
+Sitemap: /sitemap.xml
