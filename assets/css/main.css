@@ -877,10 +877,13 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 }
 .feature-list .tick svg { width: 12px; height: 12px; }
 
-.feature-visual { position: relative; }
+.feature-visual { position: relative; min-width: 0; }
 .visual-frame {
   position: relative; background: var(--card); border: 1px solid var(--line);
-  border-radius: var(--radius-l); box-shadow: var(--shadow-l); overflow: hidden;
+  border-radius: var(--radius-l); box-shadow: var(--shadow-l);
+  /* содержимое мокапов (календарь на 7 колонок) шире узкого экрана —
+     скроллим внутри рамки, а не выталкиваем страницу вбок */
+  overflow: hidden; overflow-x: auto;
 }
 .visual-glow {
   position: absolute; inset: -30px; z-index: -1; border-radius: 50px;
@@ -1006,7 +1009,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 .cal-head .t { font-family: var(--font-display); font-weight: 750; font-size: 15px; }
 .cal-head .legend { display: flex; gap: 12px; font-size: 10.5px; font-weight: 700; color: var(--ink-3); }
 .cal-head .legend i { display: inline-block; width: 8px; height: 8px; border-radius: 3px; margin-right: 5px; }
-.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px; min-width: 520px; }
 .cal-col { min-height: 168px; background: var(--bg); border: 1px solid var(--line); border-radius: 11px; padding: 7px; display: grid; gap: 6px; align-content: start; }
 .cal-col .d { font-size: 9.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); text-align: center; margin-bottom: 2px; }
 .cal-item { border-radius: 8px; padding: 7px 8px; font-size: 9.5px; font-weight: 700; line-height: 1.35; }
