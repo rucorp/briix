@@ -497,10 +497,6 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
      область прокрутки — документ всё равно шире вьюпорта. */
   overflow-x: clip;
   padding: 76px 0 96px;
-  /* свечение уходит за границы секции на 10% в каждую сторону; clip-path это
-     не обрезает по скроллимой области — документ получал горизонтальный
-     скролл во всех вьюпортах. clip (не hidden) сохраняет sticky hero-copy. */
-  overflow-x: clip;
 }
 .hero::before {
   content: ''; position: absolute; inset: -220px -10% auto;
