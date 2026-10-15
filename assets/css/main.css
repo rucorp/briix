@@ -98,7 +98,7 @@
   /* text */
   --ink: #171310;
   --text-muted: #4c453c;
-  --text-faint: #857b6e;
+  --text-faint: #6b6255;
   --ink-2: var(--text-muted);
   --ink-3: var(--text-faint);
 
@@ -213,7 +213,7 @@
   --deck-glow-2: rgba(255, 138, 76, 0.08);
   --slide-ink: #171310;
   --slide-ink-2: #4c453c;
-  --slide-ink-3: #857b6e;
+  --slide-ink-3: #6b6255;
   --slide-card: #ffffff;
   --slide-card-line: rgba(23, 19, 16, 0.09);
   --slide-line: rgba(23, 19, 16, 0.12);
@@ -285,7 +285,7 @@
   --panel-grad: linear-gradient(160deg, #f5f1ea 0%, #e9e2d6 55%, #ddd4c2 100%);
   --panel-ink: #171310;
   --panel-ink-2: rgba(23, 19, 16, 0.72);
-  --panel-ink-3: rgba(23, 19, 16, 0.55);
+  --panel-ink-3: rgba(23, 19, 16, 0.68);
   --panel-line: rgba(23, 19, 16, 0.12);
   --panel-glass: rgba(23, 19, 16, 0.06);
   --panel-accent: #5338f2;
@@ -376,8 +376,11 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 
 .container { max-width: var(--container); margin: 0 auto; padding: 0 24px; }
 
-.section { padding: 104px 0; }
-.section-tight { padding: 72px 0; }
+/* overflow-x: clip, не hidden: clip не создаёт скролл-контейнер, поэтому
+   position: sticky внутри секции продолжает работать, а декоративные элементы
+   (свечения, ореолы моков) больше не расширяют скроллимую область документа. */
+.section { padding: 104px 0; overflow-x: clip; }
+.section-tight { padding: 72px 0; overflow-x: clip; }
 .section-head { max-width: 720px; margin-bottom: 56px; }
 .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
 .eyebrow {
@@ -397,7 +400,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 
 /* ---------- Theme toggle ---------- */
 .theme-toggle {
-  width: 42px; height: 42px; border-radius: 50%;
+  width: 44px; height: 44px; border-radius: 50%;
   display: inline-grid; place-items: center;
   background: var(--ghost-bg); color: var(--ink);
   border: 1px solid var(--line);
@@ -416,7 +419,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 
 /* ---------- Language toggle ---------- */
 .lang-toggle {
-  min-width: 42px; height: 42px; padding: 0 12px; border-radius: 999px;
+  min-width: 44px; height: 44px; padding: 0 12px; border-radius: 999px;
   display: inline-grid; place-items: center;
   background: var(--ghost-bg); color: var(--ink);
   border: 1px solid var(--line);
@@ -465,20 +468,20 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 .site-header.scrolled { border-bottom-color: var(--line); background: var(--header-bg-solid); }
 .header-inner { height: var(--header-h); display: flex; align-items: center; gap: 24px; }
 
-.logo { display: inline-flex; align-items: center; gap: 11px; font-family: var(--font-display); font-weight: 800; font-size: 21px; letter-spacing: -0.03em; white-space: nowrap; flex: none; }
+.logo { display: inline-flex; align-items: center; gap: 11px; font-family: var(--font-display); font-weight: 800; font-size: 21px; letter-spacing: -0.03em; white-space: nowrap; flex: none; min-height: 44px; }
 .logo-mark { width: 34px; height: 34px; flex: none; }
 
 .nav { display: flex; align-items: center; gap: 6px; margin-left: 12px; }
 .nav a {
   padding: 9px 14px; border-radius: 999px; font-size: 15px; font-weight: 550; color: var(--ink-2);
-  white-space: nowrap;
+  white-space: nowrap; min-height: 44px; display: flex; align-items: center;
   transition: color 0.15s ease, background 0.15s ease;
 }
 .nav a:hover { color: var(--ink); background: var(--hover-bg); }
 .header-cta { margin-left: auto; display: flex; align-items: center; gap: 10px; flex: none; }
 .header-cta .btn { padding: 11px 22px; font-size: 15px; }
 
-.burger { display: none; width: 44px; height: 44px; border-radius: 12px; align-items: center; justify-content: center; }
+.burger { display: none; width: 44px; height: 44px; border-radius: 12px; align-items: center; justify-content: center; flex: none; }
 .burger span { display: block; width: 20px; height: 2px; background: var(--ink); position: relative; }
 .burger span::before, .burger span::after { content: ''; position: absolute; left: 0; width: 20px; height: 2px; background: var(--ink); }
 .burger span::before { top: -6px; }
@@ -488,6 +491,10 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 .hero {
   position: relative;
   padding: 76px 0 96px;
+  /* свечение уходит за границы секции на 10% в каждую сторону; clip-path это
+     не обрезает по скроллимой области — документ получал горизонтальный
+     скролл во всех вьюпортах. clip (не hidden) сохраняет sticky hero-copy. */
+  overflow-x: clip;
 }
 .hero::before {
   content: ''; position: absolute; inset: -220px -10% auto;
@@ -752,7 +759,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 }
 .demo-modal-close {
   position: absolute; top: 16px; right: 16px; z-index: 5;
-  width: 38px; height: 38px; border-radius: 50%;
+  width: 44px; height: 44px; border-radius: 50%;
   background: var(--ghost-bg); color: var(--ink); display: grid; place-items: center;
 }
 .demo-modal-close:hover { background: var(--ghost-bg-hover); }
@@ -772,6 +779,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 .pm-tab {
   font-size: 12px; font-weight: 750; padding: 8px 14px; border-radius: 999px;
   background: var(--ghost-bg); color: var(--ink-3); border: 1px solid transparent;
+  min-height: 44px; display: inline-flex; align-items: center;
 }
 .pm-tab:hover { background: var(--ghost-bg-hover); }
 .pm-tab.on { background: var(--ink); color: var(--on-ink); }
@@ -795,7 +803,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 .pm-note { margin-top: 14px; font-size: 11.5px; color: var(--ink-3); line-height: 1.5; }
 
 /* ---------- Trust strip ---------- */
-.trust-strip { border-block: 1px solid var(--line); background: var(--surface); padding: 22px 0; }
+.trust-strip { border-block: 1px solid var(--line); background: var(--surface); padding: 22px 0; overflow-x: clip; }
 .trust-row { display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
 .trust-item { display: flex; align-items: center; gap: 10px; font-size: 14.5px; font-weight: 650; color: var(--ink-2); }
 .trust-item svg { width: 20px; height: 20px; color: var(--accent); flex: none; }
@@ -859,6 +867,11 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
   display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
   gap: 64px; align-items: center; padding: 56px 0;
 }
+/* Моки внутри .feature-visual имеют свою min-content ширину (сетка календаря
+   на 7 колонок — 594px). min-width: auto у грид-элемента растягивал всю строку
+   и весь контейнер. Обрезка берёт на себя уже существующий
+   overflow: hidden у .visual-frame. */
+.feature-row > * { min-width: 0; }
 .feature-row + .feature-row { border-top: 1px solid var(--line); }
 .feature-row.rev .feature-visual { order: -1; }
 .feature-copy .mini-eyebrow {
@@ -1245,7 +1258,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 .final-cta .fine { position: relative; margin-top: 22px; font-size: 13px; color: var(--cta-ink-3); }
 
 /* ---------- Footer ---------- */
-.site-footer { border-top: 1px solid var(--line); padding: 56px 0 34px; background: var(--surface); }
+.site-footer { border-top: 1px solid var(--line); padding: 56px 0 34px; background: var(--surface); overflow-x: clip; }
 .footer-top { display: flex; gap: 48px; justify-content: space-between; flex-wrap: wrap; }
 .footer-brand { max-width: 300px; }
 .footer-brand p { margin-top: 14px; font-size: 14px; color: var(--ink-3); line-height: 1.6; }
@@ -1422,7 +1435,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
   border: 1px solid var(--slide-ctrl-line); border-radius: 999px; padding: 8px 10px;
 }
 .deck-controls button {
-  width: 38px; height: 38px; border-radius: 50%;
+  width: 44px; height: 44px; border-radius: 50%;
   display: grid; place-items: center;
   color: var(--slide-ctrl-ink); transition: background 0.15s ease, color 0.15s ease;
 }
@@ -1437,16 +1450,35 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
   position: fixed; top: 22px; left: 26px; z-index: 40;
   display: flex; align-items: center; gap: 9px;
   font-family: var(--font-display); font-weight: 800; font-size: 16px; letter-spacing: -0.02em; color: var(--slide-ink);
+  min-height: 44px;
 }
 .deck-brand .logo-mark { width: 26px; height: 26px; }
+/* right: 198px, а не 84px: блок переключателей (язык + тема + бургер)
+   занимает ~154px справа, подпись «Конфиденциально» заезжала под него. */
 .deck-conf {
-  position: fixed; top: 26px; right: 84px; z-index: 40;
+  position: fixed; top: 26px; right: 198px; z-index: 40;
   font-size: 10.5px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase;
   color: var(--slide-ink-3);
 }
-.deck-theme { position: fixed; top: 16px; right: 26px; z-index: 40; }
+.deck-theme { position: fixed; top: 16px; right: 26px; z-index: 41; display: flex; align-items: center; gap: 10px; }
+/* Колоды нет шапки с навигацией — бургер виден на всех ширинах */
+.deck-theme .burger { display: inline-flex; background: var(--slide-card); border: 1px solid var(--slide-card-line); color: var(--slide-ink); }
+.deck-theme .burger span, .deck-theme .burger span::before, .deck-theme .burger span::after { background: var(--slide-ink); }
+.deck-menu {
+  position: fixed; top: 68px; right: 26px; z-index: 42;
+  display: none; flex-direction: column; gap: 2px; min-width: 236px;
+  background: var(--slide-card); border: 1px solid var(--slide-card-line);
+  border-radius: 16px; padding: 10px; box-shadow: var(--shadow-l);
+}
+.deck-menu.open { display: flex; }
+.deck-menu a {
+  display: flex; align-items: center; min-height: 44px;
+  padding: 10px 14px; border-radius: 10px;
+  font-size: 15px; font-weight: 600; color: var(--slide-ink-2); text-decoration: none;
+}
+.deck-menu a:hover { background: var(--slide-ctrl-hover); color: var(--slide-ink); }
 .deck-theme .theme-toggle {
-  width: 38px; height: 38px;
+  width: 44px; height: 44px;
   background: var(--slide-card); color: var(--slide-ink-2); border-color: var(--slide-card-line);
 }
 .deck-theme .theme-toggle:hover { background: var(--slide-ctrl-hover); }
@@ -1645,13 +1677,23 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
   .nav.open {
     display: flex;
     position: absolute; top: var(--header-h); left: 0; right: 0;
+    /* margin-left: 12px из .nav сдвигал панель вправо — она не совпадала
+       с контейнером. В раскрытом состоянии панель прижата к краям шапки. */
+    margin-left: 0;
     flex-direction: column;
     background: var(--card); border-bottom: 1px solid var(--line);
-    padding: 12px 16px 18px;
+    /* внутренние отступы считаются так же, как у .container: пункты меню
+       встают в одну линию с логотипом и текстом страницы */
+    padding: 12px max(24px, calc((100% - var(--container)) / 2 + 24px)) 18px;
   }
   .nav.open a { white-space: nowrap; }
   .burger { display: inline-flex; }
 }
+/* Кнопка основного действия в панели меню. Показывается только на узких
+   телефонах, где её не вмещает шапка (см. правило ниже).
+   Селектор .nav .nav-cta, а не .nav-cta: правило .nav a задаёт display: flex
+   и по специфичности перебило бы одиночный класс. */
+.nav .nav-cta { display: none; }
 @media (max-width: 760px) {
   body { font-size: 16px; }
   .section { padding: 72px 0; }
@@ -1663,6 +1705,10 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
   .posts-grid .post-mini:nth-child(3) { display: none; }
   .url-form { flex-direction: column; }
   .url-form .btn { width: 100%; }
+  /* Плотнее шаги генерации: на телефоне разница высот idle и «генерация»
+     была до 163px, то есть карточка скакала в момент старта демо. */
+  .gen-step { padding: 11px 14px; font-size: 14.5px; }
+  .gen-steps { gap: 8px; }
   .steps, .modes-grid, .persona-strip, .aud-grid, .sec-grid,
   .highlight-grid, .next-steps, .stat-band, .s-cards-3, .s-cards-2, .s-cards-4 { grid-template-columns: 1fr; }
   .dna-grid { grid-template-columns: 1fr; }
@@ -1687,6 +1733,33 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
   .pm-actions .btn { flex: 1 1 auto; }
 }
 
+/* Касания ≥ 44px. Граница 1080px — тот же порог, на котором сайт
+   схлопывает hero-сетку: 768, 1024 и 1080 это планшеты, там тоже палец,
+   а мобильная раскладка у сайта начинается лишь с 760px.
+   Правила только добавляют минимальный размер, вёрстку не меняют. */
+@media (max-width: 1080px) {
+  .footer-col a, .doc-footer a { display: flex; align-items: center; min-height: 44px; }
+  .demo-hint .try { min-height: 44px; padding: 4px 16px; }
+  /* Ползунок: сам input был высотой 6px — за него не ухватиться.
+     Коробка становится 44px, видимая дорожка остаётся 6px. */
+  .ctrl input[type="range"] { height: 44px; background: transparent; }
+  .ctrl input[type="range"]::-webkit-slider-runnable-track {
+    height: 6px; border-radius: 999px; background: var(--panel-track);
+  }
+  .ctrl input[type="range"]::-moz-range-track {
+    height: 6px; border-radius: 999px; background: var(--panel-track);
+  }
+  .ctrl input[type="range"]::-webkit-slider-thumb { margin-top: -8px; }
+}
+/* Узкие телефоны: логотип + переключатели + бургер занимают ~332px,
+   кнопка «Показать мои посты» (193px в RU, 150px в EN) в шапку уже
+   не влезает и выталкивала бургер за правый край экрана.
+   Убираем её из шапки — в панели меню она остаётся в один тап. */
+@media (max-width: 600px) {
+  .header-cta .btn-primary { display: none; }
+  .nav .nav-cta { display: inline-flex; margin-top: 10px; }
+}
+
 /* ---------- Print (deck → PDF; always the light theme) ---------- */
 @media print {
   .hero-copy { position: static; }
@@ -1699,7 +1772,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
     --surface-alt: #fbf9f6;
     --ink: #171310;
     --text-muted: #4c453c;
-    --text-faint: #857b6e;
+    --text-faint: #6b6255;
     --line: rgba(23, 19, 16, 0.12);
     --line-strong: rgba(23, 19, 16, 0.22);
     --accent: #5338f2;
@@ -1708,7 +1781,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
     --deck-canvas: #ffffff;
     --slide-ink: #171310;
     --slide-ink-2: #4c453c;
-    --slide-ink-3: #857b6e;
+    --slide-ink-3: #6b6255;
     --slide-card: #ffffff;
     --slide-card-line: rgba(23, 19, 16, 0.12);
     --slide-line: rgba(23, 19, 16, 0.14);

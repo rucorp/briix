@@ -12,21 +12,9 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  /* ---------- Mobile nav ---------- */
-  const burger = document.querySelector('.burger');
-  const nav = document.querySelector('.nav');
-  if (burger && nav) {
-    burger.addEventListener('click', () => {
-      const open = nav.classList.toggle('open');
-      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    nav.addEventListener('click', (e) => {
-      if (e.target.closest('a')) {
-        nav.classList.remove('open');
-        burger.setAttribute('aria-expanded', 'false');
-      }
-    });
-  }
+  /* ---------- Mobile nav ----------
+     Логика бургера вынесена в assets/js/nav.js — она нужна и на других
+     страницах, а landing.js грузит только лендинг. */
 
   /* ---------- Reveal on scroll ---------- */
   const io = new IntersectionObserver(

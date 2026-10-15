@@ -42,12 +42,13 @@
       <img class="logo-mark" src="../assets/img/logo.svg" alt="">
       BRIIX
     </a>
-    <nav class="nav" aria-label="Main navigation">
+    <nav class="nav" id="site-menu" aria-label="Main navigation">
       <a href="#how">How it works</a>
       <a href="#product">Features</a>
       <a href="#audience">Who</a>
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
+      <a class="btn btn-primary nav-cta" href="#demo">Show my posts</a>
     </nav>
     <div class="header-cta">
       <a class="btn btn-ghost" href="#demo">See the demo</a>
@@ -58,7 +59,7 @@
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
       </button>
     </div>
-    <button class="burger" aria-label="Menu"><span></span></button>
+    <button class="burger" type="button" aria-controls="site-menu" aria-expanded="false" aria-label="Menu"><span></span></button>
   </div>
 </header>
 
@@ -1009,10 +1010,11 @@
 </div>
 
 <!-- Toast -->
-<div id="toast" hidden style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:100;background:var(--panel-bg);color:var(--panel-ink);padding:15px 26px;border-radius:999px;font-size:14.5px;font-weight:650;box-shadow:var(--shadow-l);opacity:0;transition:opacity .35s ease;max-width:92vw;text-align:center">
+<div id="toast" hidden style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:130;background:var(--panel-bg);color:var(--panel-ink);padding:15px 26px;border-radius:999px;font-size:14.5px;font-weight:650;box-shadow:var(--shadow-l);opacity:0;transition:opacity .35s ease;max-width:92vw;text-align:center">
   This is a demonstration landing page: the sign-up form goes live when the product launches.
 </div>
 
+<script src="../assets/js/nav.js"></script>
 <script src="../assets/js/theme.js"></script>
 <script src="../assets/i18n/en.js"></script>
 <script src="../assets/js/landing.js"></script>

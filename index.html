@@ -42,12 +42,13 @@
       <img class="logo-mark" src="assets/img/logo.svg" alt="">
       BRIIX
     </a>
-    <nav class="nav" aria-label="Основная навигация">
+    <nav class="nav" id="site-menu" aria-label="Основная навигация">
       <a href="#how">Как работает</a>
       <a href="#product">Возможности</a>
       <a href="#audience">Кому</a>
       <a href="#pricing">Тарифы</a>
       <a href="#faq">Вопросы</a>
+      <a class="btn btn-primary nav-cta" href="#demo">Показать мои посты</a>
     </nav>
     <div class="header-cta">
       <a class="btn btn-ghost" href="#demo">Смотреть демо</a>
@@ -58,7 +59,7 @@
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
       </button>
     </div>
-    <button class="burger" aria-label="Меню"><span></span></button>
+    <button class="burger" type="button" aria-controls="site-menu" aria-expanded="false" aria-label="Меню"><span></span></button>
   </div>
 </header>
 
@@ -1009,10 +1010,11 @@
 </div>
 
 <!-- Toast -->
-<div id="toast" hidden style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:100;background:var(--panel-bg);color:var(--panel-ink);padding:15px 26px;border-radius:999px;font-size:14.5px;font-weight:650;box-shadow:var(--shadow-l);opacity:0;transition:opacity .35s ease;max-width:92vw;text-align:center">
+<div id="toast" hidden style="position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:130;background:var(--panel-bg);color:var(--panel-ink);padding:15px 26px;border-radius:999px;font-size:14.5px;font-weight:650;box-shadow:var(--shadow-l);opacity:0;transition:opacity .35s ease;max-width:92vw;text-align:center">
   Это демонстрационный лендинг: форма регистрации подключается при запуске продукта.
 </div>
 
+<script src="assets/js/nav.js"></script>
 <script src="assets/js/theme.js"></script>
 <script src="assets/i18n/ru.js"></script>
 <script src="assets/js/landing.js"></script>
