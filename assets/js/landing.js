@@ -12,21 +12,9 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  /* ---------- Mobile nav ---------- */
-  const burger = document.querySelector('.burger');
-  const nav = document.querySelector('.nav');
-  if (burger && nav) {
-    burger.addEventListener('click', () => {
-      const open = nav.classList.toggle('open');
-      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    nav.addEventListener('click', (e) => {
-      if (e.target.closest('a')) {
-        nav.classList.remove('open');
-        burger.setAttribute('aria-expanded', 'false');
-      }
-    });
-  }
+  /* ---------- Mobile nav ----------
+     Бургер и панель меню вынесены в assets/js/nav.js — тот файл грузится
+     на всех 8 страницах, а landing.js только на лендинге (issue #5, п. 2). */
 
   /* ---------- Reveal on scroll ---------- */
   const io = new IntersectionObserver(
@@ -436,20 +424,74 @@
     });
   }
 
+  /* ---------- Шаг «введите свой сайт» ----------
+     Общий для кнопки «Другой сайт» и для «Показать мои посты» в шапке.
+     show(demoIdle) здесь обязателен: после генерации demo-idle скрыт, и без
+     него карточка оставалась пустой (тело не показывалось вообще). */
+  function showUrlStep() {
+    hide(demoGen);
+    hide(demoResult);
+    if (planTeaser) planTeaser.hidden = true;
+    stepsEl.forEach((s) => {
+      s.classList.remove('active', 'done');
+      const mark = s.querySelector('.mark');
+      if (mark) mark.textContent = '';
+    });
+    show(demoIdle);
+    if (demoInput) demoInput.focus({ preventScroll: true });
+  }
+
   const changeBtn = document.getElementById('demo-change');
   if (changeBtn) {
-    changeBtn.addEventListener('click', () => {
-      hide(demoGen);
-      hide(demoResult);
-      if (planTeaser) planTeaser.hidden = true;
-      stepsEl.forEach((s) => {
-        s.classList.remove('active', 'done');
-        const mark = s.querySelector('.mark');
-        if (mark) mark.textContent = '';
-      });
-      if (demoInput) demoInput.focus();
-    });
+    changeBtn.addEventListener('click', showUrlStep);
   }
+
+  /* ============================================================
+     Кнопки в шапке — два разных действия (issue #5, п. 4)
+     ------------------------------------------------------------
+     Раньше обе вели на один якорь #demo и только прокручивали страницу,
+     поэтому на десктопе, где демо и так на экране, выглядело как
+     «ничего не происходит», а обещали кнопки разное.
+
+     «Смотреть демо» (data-demo-action="watch")
+        — пассивный сценарий: показать готовый пример. Всегда запускает
+          встроенный демо-бренд, то есть посетитель видит полный результат
+          (Brand DNA + 6 постов + план), не вводя ничего. Заодно это
+          видимая реакция на клик: проигрывается анимация генерации.
+
+     «Показать мои посты» (data-demo-action="mine")
+        — активный сценарий: показать посты ПОСЕТИТЕЛЯ. Если домен уже
+          вписан в поле — сразу генерируем по нему. Если поле пустое —
+          возвращаем карточку на шаг ввода и ставим фокус в поле
+          (focus-within даёт акцентный ореол), то есть подводим к вводу.
+
+     Оба действия дополнительно прокручивают к карточке с отступом под
+     липкую шапку — на узких экранах демо ниже первого экрана.
+     ============================================================ */
+  const DEMO_BRAND = 'nordhavn-studio.com';
+
+  function scrollToDemo() {
+    const anchor = document.getElementById('demo');
+    if (!anchor) return;
+    const offset = (header ? header.offsetHeight : 0) + 16;
+    const y = anchor.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+  }
+
+  document.querySelectorAll('[data-demo-action]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const typed = demoInput ? normalizeUrl(demoInput.value) : null;
+      if (btn.getAttribute('data-demo-action') === 'watch') {
+        if (!running) runDemo(DEMO_BRAND);
+      } else if (typed) {
+        if (!running) runDemo(typed);
+      } else {
+        showUrlStep();
+      }
+      scrollToDemo();
+    });
+  });
 
   /* Toast for CTA placeholders */
   document.querySelectorAll('[data-cta-toast]').forEach((btn) => {
@@ -470,6 +512,8 @@
 
   /* ---------- Smooth anchor offset for sticky header ---------- */
   document.querySelectorAll('a[href^="#"]').forEach((a) => {
+    /* у кнопок демо свой обработчик — он и действие делает, и прокручивает */
+    if (a.hasAttribute('data-demo-action')) return;
     a.addEventListener('click', (e) => {
       const id = a.getAttribute('href');
       if (!id || id === '#' || id.length < 2) return;

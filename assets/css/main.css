@@ -478,11 +478,89 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 .header-cta { margin-left: auto; display: flex; align-items: center; gap: 10px; flex: none; }
 .header-cta .btn { padding: 11px 22px; font-size: 15px; }
 
-.burger { display: none; width: 44px; height: 44px; border-radius: 12px; align-items: center; justify-content: center; }
+/* flex: none обязателен: без него бургер — единственный сжимаемый элемент
+   строки — сплющивался браузером с 44px до min-content 32px и уезжал за
+   правый край (задача 5, п. 1). */
+.burger { display: none; width: 44px; height: 44px; border-radius: 12px; align-items: center; justify-content: center; flex: none; }
 .burger span { display: block; width: 20px; height: 2px; background: var(--ink); position: relative; }
 .burger span::before, .burger span::after { content: ''; position: absolute; left: 0; width: 20px; height: 2px; background: var(--ink); }
 .burger span::before { top: -6px; }
 .burger span::after { top: 6px; }
+
+/* ---------- Панель меню (бургер) ----------
+   Единая для всех 8 страниц и для любой ширины: открывается классом .open
+   на .nav (см. assets/js/nav.js).
+
+   Почему absolute + явная высота, а не position: fixed:
+   у .site-header есть backdrop-filter, а он (как filter/transform) делает
+   элемент containing block'ом для fixed-потомков — панель считала бы
+   вьюпортом саму шапку высотой 72px. .site-header — sticky с top: 0, то есть
+   её верх всегда совпадает с верхом вьюпорта, поэтому absolute от шапки
+   даёт ровно тот же результат. */
+.nav.open {
+  display: flex;
+  position: absolute;
+  top: var(--header-h); left: 0; right: 0;
+  height: calc(100vh - var(--header-h));
+  height: calc(100dvh - var(--header-h));
+  margin: 0;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  padding: 18px 20px 28px;
+  /* Панель обязана перекрывать страницу целиком (задача 5, п. 3):
+     фон непрозрачный в обеих темах и высота на весь вьюпорт под шапкой. */
+  background: var(--bg);
+  border-top: 1px solid var(--line);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  z-index: 70;
+}
+.nav.open a {
+  white-space: normal;
+  padding: 14px 16px;
+  border-radius: var(--radius-s);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* CTA внутри панели. Вне панели скрыты: на узких экранах кнопки уходят
+   из шапки в меню (иначе не помещаются — см. отчёт, расчёт по 600px). */
+.nav-cta { display: none; }
+.nav.open .nav-cta {
+  display: flex; flex-direction: column; gap: 10px;
+  margin-top: 12px; padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.nav.open .nav-cta .btn {
+  width: 100%;
+  padding: 15px 28px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+/* .nav a (0,1,1) перебивает .btn-*.btn (0,1,0) по цвету и ховеру —
+   возвращаем кнопкам их собственный вид. */
+.nav.open .nav-cta .btn-primary { color: var(--on-accent); }
+.nav.open .nav-cta .btn-primary:hover { color: var(--on-accent); background: var(--accent-deep); }
+.nav.open .nav-cta .btn-ghost { color: var(--ink); }
+.nav.open .nav-cta .btn-ghost:hover { color: var(--ink); background: var(--ghost-bg-hover); }
+
+/* ---------- Шапка «только меню» ----------
+   Внутренние страницы (инвест-доки, финмодель) и презентация: горизонтальной
+   навигации нет ни на какой ширине, все переходы — в панели бургера.
+   Одинаково на обеих языковых версиях (задача 5, п. 2). */
+.site-header.menu-only .nav:not(.open) { display: none; }
+.site-header.menu-only .burger { display: inline-flex; margin-left: auto; }
+
+/* Якоря должны приземляться ниже липкой шапки, а не под неё (задача 5, п. 4).
+   JS на лендинге и так отступает 84px, но scroll-margin работает и без JS,
+   и на внутренних страницах, где landing.js не грузится. */
+main[id], section[id], .demo-card[id], .doc-section[id] {
+  scroll-margin-top: calc(var(--header-h) + 16px);
+}
 
 /* ---------- Hero ---------- */
 .hero {
@@ -1449,17 +1527,39 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 }
 .deck-brand .logo-mark { width: 26px; height: 26px; }
 .deck-conf {
-  position: fixed; top: 26px; right: 84px; z-index: 40;
+  /* 176px: справа стоит кластер .deck-theme шириной ~137px
+     (язык 45 + тема 38 + бургер 38 + два гэпа 8) с отступом 26px.
+     Прежнее 84px перекрывало кластер ещё до бургера — на 28px. */
+  position: fixed; top: 26px; right: 176px; z-index: 40;
   font-size: 10.5px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase;
   color: var(--slide-ink-3);
 }
-.deck-theme { position: fixed; top: 16px; right: 26px; z-index: 40; }
+/* z-index 70 — выше слайдов и .deck-controls (40): панель меню должна
+   перекрывать презентацию целиком. В @media print блок скрыт целиком. */
+.deck-theme { position: fixed; top: 16px; right: 26px; z-index: 70; display: flex; align-items: center; gap: 8px; }
 .deck-theme .theme-toggle {
   width: 38px; height: 38px;
   background: var(--slide-card); color: var(--slide-ink-2); border-color: var(--slide-card-line);
 }
 .deck-theme .theme-toggle:hover { background: var(--slide-ctrl-hover); }
 .deck-theme .theme-toggle svg { width: 17px; height: 17px; }
+/* Бургер презентации: тот же компонент, что и на сайте (assets/js/nav.js),
+   но в фирменном хроме слайдов. На презентации нет горизонтальной навигации
+   ни на какой ширине — все переходы в панели. */
+.deck-burger {
+  display: inline-flex; width: 38px; height: 38px; border-radius: 12px;
+  background: var(--slide-card); border: 1px solid var(--slide-card-line);
+}
+.deck-burger:hover { background: var(--slide-ctrl-hover); }
+.deck-burger span, .deck-burger span::before, .deck-burger span::after { background: var(--slide-ink-2); }
+/* Панель на презентации — от вьюпорта, а не от шапки: .deck-theme не имеет
+   ни backdrop-filter, ни transform, поэтому fixed работает normally. */
+.deck-theme .nav.open {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0; height: auto;
+  border-top: 0;
+  background: var(--deck-canvas);
+  padding: 78px 22px 32px;
+}
 
 /* ============================================================
    Investor & financial-model pages (unlisted)
@@ -1491,7 +1591,9 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 .doc-header .link-chip svg { width: 15px; height: 15px; }
 
 .doc-main { padding: 64px 0 96px; }
-.doc-section { margin-bottom: 64px; scroll-margin-top: 24px; }
+/* scroll-margin-top для якорей задан общим правилом у шапки
+   (main[id], section[id], …) — с учётом липкой шапки на 72px. */
+.doc-section { margin-bottom: 64px; }
 .doc-section > h2 {
   font-size: clamp(26px, 3.2vw, 36px); letter-spacing: -0.025em; margin-bottom: 8px;
 }
@@ -1647,19 +1749,26 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
   .demo-modal-grid { grid-template-columns: 1fr; }
   .pm-visual { padding: 18px; }
 }
-/* Шапка: полный набор (навигация + CTA + переключатели) требует ~1225px (RU).
+/* Шапка: полный набор (навигация + CTA + переключатели) = 1153px контента
+   (RU; EN — 999px), то есть 1201px вместе с паддингами контейнера.
+   .container ограничен 1160px, поэтому на ≥1280px шапка умещается на экран,
+   но выходит за сетку контейнера вправо на ~41px (см. отчёт task-5,
+   раздел «Найдено попутно»). Порог 1280px оставлен как был.
    Ниже 1280px схлопываем в бургер, иначе пункты наезжают друг на друга. */
 @media (max-width: 1279px) {
-  .nav, .header-cta .btn-ghost { display: none; }
-  .nav.open {
-    display: flex;
-    position: absolute; top: var(--header-h); left: 0; right: 0;
-    flex-direction: column;
-    background: var(--card); border-bottom: 1px solid var(--line);
-    padding: 12px 16px 18px;
-  }
-  .nav.open a { white-space: nowrap; }
+  .nav:not(.open), .header-cta .btn-ghost { display: none; }
   .burger { display: inline-flex; }
+}
+/* Ниже 600px в шапке не помещается даже одна CTA-кнопка. По реальным
+   метрикам Manrope 700 (15px) «Показать мои посты» = 192px, строка шапки:
+   лого 96 + гэп 24 + [кнопка 192 + гэп 10 + язык 45 + гэп 10 + тема 42 = 299]
+   + гэп 24 + бургер 44 = 487, плюс паддинги контейнера 48 → 535px.
+   Кнопки уходят в панель бургера (.nav-cta), в шапке остаются лого, язык,
+   тема и бургер — 284px, помещается начиная с 360px.
+   Порог взят 600px, а не 535px: запас на расхождение метрик и рендеринга.
+   Расчёт — audits/task-5-header-metrics.py. */
+@media (max-width: 600px) {
+  .header-cta .btn { display: none; }
 }
 @media (max-width: 760px) {
   body { font-size: 16px; }
@@ -1730,6 +1839,9 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
     --slide-track: rgba(23, 19, 16, 0.08);
   }
   .deck-controls, .deck-progress, .deck-hint, .deck-theme { display: none !important; }
+  /* Липкая шапка появилась на внутренних страницах (инвест-доки, финмодель) —
+     в PDF она не нужна: документ печатается с собственного .doc-header. */
+  .site-header, .burger { display: none !important; }
   .deck, .slides { position: static; display: block; background: #ffffff; }
   .slide {
     position: static; opacity: 1; visibility: visible; transform: none;

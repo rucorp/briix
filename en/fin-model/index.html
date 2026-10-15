@@ -31,6 +31,24 @@
 </head>
 <body class="doc-body">
 
+<header class="site-header menu-only">
+  <div class="container header-inner">
+    <a class="logo" href="../index.html" aria-label="BRIIX — home">
+      <img class="logo-mark" src="../../assets/img/logo.svg" alt="">
+      BRIIX
+    </a>
+    <!-- Inner pages carry no horizontal navigation: every link lives in the
+         burger panel, at any width (issue #5, item 2) -->
+    <nav class="nav" id="menu" aria-label="Site sections">
+      <a href="../index.html">Product site</a>
+      <a href="../presentation.html">Project presentation</a>
+      <a href="../investors/">Investor section</a>
+      <a href="../fin-model/" aria-current="page">Financial model and calculator</a>
+    </nav>
+    <button class="burger" aria-label="Menu" aria-controls="menu" aria-expanded="false"><span></span></button>
+  </div>
+</header>
+
 <header class="doc-header">
   <div class="container">
     <div class="conf-badge">Confidential · direct link only</div>
@@ -292,6 +310,7 @@
 </footer>
 
 <script src="../../assets/js/theme.js"></script>
+<script src="../../assets/js/nav.js"></script>
 <script src="../../assets/i18n/en.js"></script>
 <script src="../../assets/js/finmodel.js"></script>
 </body>

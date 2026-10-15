@@ -31,6 +31,24 @@
 </head>
 <body class="doc-body">
 
+<header class="site-header menu-only">
+  <div class="container header-inner">
+    <a class="logo" href="../index.html" aria-label="BRIIX — на главную">
+      <img class="logo-mark" src="../assets/img/logo.svg" alt="">
+      BRIIX
+    </a>
+    <!-- Горизонтальной навигации на внутренних страницах нет: все переходы
+         — в панели бургера, на любой ширине (issue #5, п. 2) -->
+    <nav class="nav" id="menu" aria-label="Разделы сайта">
+      <a href="../index.html">Продуктовый сайт</a>
+      <a href="../presentation.html">Презентация проекта</a>
+      <a href="../investors/">Раздел для инвесторов</a>
+      <a href="../fin-model/" aria-current="page">Финансовая модель и калькулятор</a>
+    </nav>
+    <button class="burger" aria-label="Меню" aria-controls="menu" aria-expanded="false"><span></span></button>
+  </div>
+</header>
+
 <header class="doc-header">
   <div class="container">
     <div class="conf-badge">Конфиденциально · только по прямой ссылке</div>
@@ -292,6 +310,7 @@
 </footer>
 
 <script src="../assets/js/theme.js"></script>
+<script src="../assets/js/nav.js"></script>
 <script src="../assets/i18n/ru.js"></script>
 <script src="../assets/js/finmodel.js"></script>
 </body>

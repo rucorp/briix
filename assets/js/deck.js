@@ -78,7 +78,9 @@
 
   /* Click zones (left third = back, right two thirds = forward) */
   document.getElementById('deck').addEventListener('click', (e) => {
-    if (e.target.closest('a, button, .deck-controls')) return;
+    /* .nav — панель бургера (assets/js/nav.js): клик по её фону не должен
+       листать слайд под ней */
+    if (e.target.closest('a, button, .deck-controls, .nav')) return;
     const x = e.clientX / window.innerWidth;
     if (x < 0.28) go(current - 1);
     else go(current + 1);
