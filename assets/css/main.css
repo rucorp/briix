@@ -3,7 +3,6 @@
    Warm neutral base, violet accent, Manrope + Inter.
    All colors live in the variable blocks:
    :root (light), [data-theme='dark'], @media print (light).
->>>>>>> origin/arena/9d79079d-briix:site/assets/css/main.css
    ============================================================ */
 
 /* ---------- Reset ---------- */
@@ -127,7 +126,6 @@
   --danger: #c2410c;
 
   /* on-ink (inverted text/chips) */
->>>>>>> origin/arena/9d79079d-briix:site/assets/css/main.css
   --on-ink: #ffffff;
   --ink-hover: #2c241d;
 
@@ -166,7 +164,6 @@
   --cta-btn-ink: #3b21c8;
 
   /* art — client content and mockups, NOT recolored by the theme */
->>>>>>> origin/arena/9d79079d-briix:site/assets/css/main.css
   --art-card: #ffffff;
   --art-ink: #171310;
   --art-title-ink: #ffffff;
@@ -281,7 +278,6 @@
   --hover-bg: rgba(245, 241, 234, 0.08);
 
   /* inverted panels become light */
->>>>>>> origin/arena/9d79079d-briix:site/assets/css/main.css
   --panel-bg: #f5f1ea;
   --panel-grad: linear-gradient(160deg, #f5f1ea 0%, #e9e2d6 55%, #ddd4c2 100%);
   --panel-ink: #171310;
@@ -310,7 +306,6 @@
   --cta-btn-ink: #f5f1ea;
 
   /* art does not change */
->>>>>>> origin/arena/9d79079d-briix:site/assets/css/main.css
   --glow-1: rgba(165, 148, 255, 0.12);
   --glow-2: rgba(255, 138, 76, 0.09);
   --glow-3: rgba(165, 148, 255, 0.06);
@@ -433,7 +428,6 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 }
 .lang-toggle.on-dark:hover { background: var(--panel-line); }
 
->>>>>>> origin/arena/9d79079d-briix:site/assets/css/main.css
 /* ---------- Buttons ---------- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
@@ -488,12 +482,15 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 
 /* ---------- Hero ---------- */
 .hero {
-  position: relative; overflow: hidden;
+  position: relative;
   padding: 76px 0 96px;
 }
 .hero::before {
   content: ''; position: absolute; inset: -220px -10% auto;
   height: 640px; pointer-events: none;
+  /* обрезаем свечение ровно по границе секции без overflow:hidden —
+     иначе .hero становится скролл-контейнером и ломает position: sticky */
+  clip-path: inset(220px 8.3333% 0 8.3333%);
   background:
     radial-gradient(52% 60% at 18% 30%, var(--glow-1), transparent 68%),
     radial-gradient(44% 55% at 82% 18%, var(--glow-2), transparent 70%),
@@ -501,8 +498,17 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 }
 .hero-grid {
   position: relative;
-  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-  gap: 56px; align-items: center;
+  display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: 56px; align-items: start;
+}
+/* Залипание левой колонки: только CSS, без JS.
+   Ниже 1081px грид схлопывается в одну колонку — залипание отключено. */
+@media (min-width: 1081px) {
+  .hero-copy {
+    position: sticky;
+    top: calc(var(--header-h) + 28px);
+    align-self: start;
+  }
 }
 .hero-badge {
   display: inline-flex; align-items: center; gap: 10px;
@@ -514,8 +520,9 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 .hero-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 4px var(--ok-glow); margin-left: 4px; }
 
 .hero h1 {
-  font-size: clamp(42px, 5.8vw, 68px);
+  font-size: clamp(42px, 4.3vw, 50px);
   letter-spacing: -0.032em;
+  text-wrap: balance;
 }
 .hero h1 .line2 { color: var(--accent); }
 .hero-sub { margin-top: 24px; font-size: 20px; line-height: 1.6; color: var(--ink-2); max-width: 520px; }
@@ -537,6 +544,18 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
   position: relative;
   background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-xl);
   box-shadow: var(--shadow-l); overflow: hidden;
+  /* пол высоты: idle и генерация не «дышат» друг относительно друга */
+  min-height: 430px;
+}
+/* Рост карточки к результату — мягкий, без мгновенного скачка */
+@media (prefers-reduced-motion: no-preference) {
+  .demo-card:has(#demo-result:not([hidden])) {
+    animation: demo-grow 0.55s ease;
+  }
+  @keyframes demo-grow {
+    from { max-height: 430px; }
+    to { max-height: 2400px; }
+  }
 }
 .demo-head {
   display: flex; align-items: center; gap: 10px;
@@ -655,7 +674,6 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
   padding: 4px 8px; border-radius: 999px;
 }
 /* mini post art (client content — always “light” art) */
->>>>>>> origin/arena/9d79079d-briix:site/assets/css/main.css
 .pm-art { position: absolute; inset: 0; }
 .pm-art .pa-blob { position: absolute; border-radius: 50%; filter: blur(2px); opacity: 0.85; background: var(--art-glass); }
 .pm-art .pa-title {
@@ -1648,8 +1666,8 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 }
 
 /* ---------- Print (deck → PDF; always the light theme) ---------- */
->>>>>>> origin/arena/9d79079d-briix:site/assets/css/main.css
 @media print {
+  .hero-copy { position: static; }
   :root, [data-theme='dark'] {
     color-scheme: light;
     --bg: #ffffff;
