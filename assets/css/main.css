@@ -1,10 +1,9 @@
 /* ============================================================
    BRIIX — design system
-   Warm neutral base · one accent · product-first
-   Все цвета живут в блоках переменных:
-   :root — светлая тема (по умолчанию),
-   [data-theme="dark"] — тёмная,
-   @media print — принудительно светлая.
+   Warm neutral base, violet accent, Manrope + Inter.
+   All colors live in the variable blocks:
+   :root (light), [data-theme='dark'], @media print (light).
+>>>>>>> origin/arena/9d79079d-briix:site/assets/css/main.css
    ============================================================ */
 
 /* ---------- Reset ---------- */
@@ -127,7 +126,8 @@
   --warn-border: rgba(180, 83, 9, 0.35);
   --danger: #c2410c;
 
-  /* on-ink (инвертированный текст/чипы) */
+  /* on-ink (inverted text/chips) */
+>>>>>>> origin/arena/9d79079d-briix:site/assets/css/main.css
   --on-ink: #ffffff;
   --ink-hover: #2c241d;
 
@@ -165,7 +165,8 @@
   --cta-btn-bg: #ffffff;
   --cta-btn-ink: #3b21c8;
 
-  /* art — контент клиента и мокапы, НЕ перекрашивается темой */
+  /* art — client content and mockups, NOT recolored by the theme */
+>>>>>>> origin/arena/9d79079d-briix:site/assets/css/main.css
   --art-card: #ffffff;
   --art-ink: #171310;
   --art-title-ink: #ffffff;
@@ -279,7 +280,8 @@
   --ghost-bg-hover: rgba(245, 241, 234, 0.12);
   --hover-bg: rgba(245, 241, 234, 0.08);
 
-  /* инвертированные панели становятся светлыми */
+  /* inverted panels become light */
+>>>>>>> origin/arena/9d79079d-briix:site/assets/css/main.css
   --panel-bg: #f5f1ea;
   --panel-grad: linear-gradient(160deg, #f5f1ea 0%, #e9e2d6 55%, #ddd4c2 100%);
   --panel-ink: #171310;
@@ -307,7 +309,8 @@
   --cta-btn-bg: #171310;
   --cta-btn-ink: #f5f1ea;
 
-  /* art не меняется */
+  /* art does not change */
+>>>>>>> origin/arena/9d79079d-briix:site/assets/css/main.css
   --glow-1: rgba(165, 148, 255, 0.12);
   --glow-2: rgba(255, 138, 76, 0.09);
   --glow-3: rgba(165, 148, 255, 0.06);
@@ -413,6 +416,24 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 }
 .theme-toggle.on-dark:hover { background: var(--panel-line); }
 
+/* ---------- Language toggle ---------- */
+.lang-toggle {
+  min-width: 42px; height: 42px; padding: 0 12px; border-radius: 999px;
+  display: inline-grid; place-items: center;
+  background: var(--ghost-bg); color: var(--ink);
+  border: 1px solid var(--line);
+  font-family: var(--font-display); font-weight: 700; font-size: 13px;
+  letter-spacing: 0.06em; text-decoration: none;
+  transition: background 0.18s ease, transform 0.18s ease;
+  flex: none;
+}
+.lang-toggle:hover { background: var(--ghost-bg-hover); transform: translateY(-1px); }
+.lang-toggle.on-dark {
+  background: var(--panel-glass); color: var(--panel-ink); border-color: var(--panel-line);
+}
+.lang-toggle.on-dark:hover { background: var(--panel-line); }
+
+>>>>>>> origin/arena/9d79079d-briix:site/assets/css/main.css
 /* ---------- Buttons ---------- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
@@ -633,7 +654,8 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
   font-size: 9px; font-weight: 750; letter-spacing: 0.1em; text-transform: uppercase;
   padding: 4px 8px; border-radius: 999px;
 }
-/* mini post art (клиентский контент — всегда «светлый» арт) */
+/* mini post art (client content — always “light” art) */
+>>>>>>> origin/arena/9d79079d-briix:site/assets/css/main.css
 .pm-art { position: absolute; inset: 0; }
 .pm-art .pa-blob { position: absolute; border-radius: 50%; filter: blur(2px); opacity: 0.85; background: var(--art-glass); }
 .pm-art .pa-title {
@@ -1625,7 +1647,8 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
   .pm-actions .btn { flex: 1 1 auto; }
 }
 
-/* ---------- Print (deck → PDF; всегда светлая тема) ---------- */
+/* ---------- Print (deck → PDF; always the light theme) ---------- */
+>>>>>>> origin/arena/9d79079d-briix:site/assets/css/main.css
 @media print {
   :root, [data-theme='dark'] {
     color-scheme: light;

@@ -1,7 +1,7 @@
 /* ============================================================
    BRIIX — theme toggle (light / dark)
-   Начальное значение ставит инлайновый скрипт в <head> (без мигания).
-   Здесь — только переключение и синхронизация кнопок.
+   The initial value is set by the inline script in <head> (no flash).
+   This file only handles switching and button sync.
    ============================================================ */
 (function () {
   'use strict';
@@ -35,7 +35,7 @@
 
   syncButtons(current());
 
-  /* Реакция на системную смену, пока пользователь не выбрал тему сам */
+  /* Follow the system scheme until the user picks a theme */
   try {
     if (!localStorage.getItem(KEY) && window.matchMedia) {
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {

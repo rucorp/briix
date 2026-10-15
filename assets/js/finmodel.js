@@ -35,10 +35,13 @@
 
   if (!els.clients || !out.margin) return;
 
+  const I18N = window.I18N || {};
+  const FIN = I18N.fin || {};
+  const LOCALE = I18N.locale || 'en-US';
   const fmtMoney = (n) =>
-    '$' + Math.round(n).toLocaleString('ru-RU').replace(/,/g, ' ');
+    '$' + Math.round(n).toLocaleString(LOCALE).replace(/,/g, ' ');
   const fmtNum = (n, digits) =>
-    n.toLocaleString('ru-RU', { minimumFractionDigits: digits, maximumFractionDigits: digits }).replace(/,/g, ' ');
+    n.toLocaleString(LOCALE, { minimumFractionDigits: digits, maximumFractionDigits: digits }).replace(/,/g, ' ');
 
   function compute() {
     const clients = +els.clients.value;
@@ -60,7 +63,7 @@
     const mrr = clients * arpa;
     const op = clients * grossPerClient - fixed - mkt;
 
-    out.vClients.textContent = clients.toLocaleString('ru-RU').replace(/,/g, ' ');
+    out.vClients.textContent = clients.toLocaleString(LOCALE).replace(/,/g, ' ');
     out.vArpa.textContent = '$' + arpa;
     out.vChurn.textContent = fmtNum(churnPct, churnPct % 1 ? 1 : 0) + '%';
     out.vCac.textContent = '$' + cac;
@@ -71,19 +74,19 @@
     out.margin.textContent = fmtNum(margin, 1) + '%';
     out.gpc.textContent = fmtMoney(grossPerClient);
     out.ltv.textContent = fmtMoney(ltv);
-    out.lifespan.textContent = 'жизнь ' + fmtNum(lifespan, 1) + ' мес';
+    out.lifespan.textContent = (FIN.life || 'life') + ' ' + fmtNum(lifespan, 1) + ' ' + (FIN.months || 'mo');
     out.ltvcac.textContent = fmtNum(ltvcac, 1);
-    out.payback.textContent = fmtNum(Math.min(payback, 99), 1) + ' мес';
-    out.breakeven.textContent = Math.ceil(breakeven).toLocaleString('ru-RU').replace(/,/g, ' ');
+    out.payback.textContent = fmtNum(Math.min(payback, 99), 1) + ' ' + (FIN.months || 'mo');
+    out.breakeven.textContent = Math.ceil(breakeven).toLocaleString(LOCALE).replace(/,/g, ' ');
     out.mrr.textContent = fmtMoney(mrr) + ' · ' + (op >= 0 ? '+' : '−') + fmtMoney(Math.abs(op));
     out.mrr.classList.toggle('up', op >= 0);
     out.mrr.classList.toggle('down', op < 0);
 
     if (clients >= breakeven) {
-      out.note.textContent = 'операционная безубыточность достигнута';
+      out.note.textContent = FIN.breakevenOk || 'breakeven reached';
     } else {
-      out.note.textContent = 'до безубыточности не хватает ' +
-        Math.ceil(breakeven - clients).toLocaleString('ru-RU').replace(/,/g, ' ') + ' клиентов';
+      out.note.textContent = (FIN.breakevenGap || 'need') + ' ' +
+        Math.ceil(breakeven - clients).toLocaleString(LOCALE).replace(/,/g, ' ') + ' ' + (FIN.clients || 'more clients');
     }
   }
 
