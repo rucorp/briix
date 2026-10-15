@@ -546,6 +546,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 /* Hero demo card */
 .demo-card {
   position: relative;
+  min-width: 0;   /* фикс из main (ff9072c): карточка не вылезает за колонку */
   background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-xl);
   box-shadow: var(--shadow-l); overflow: hidden;
   /* пол высоты: idle и генерация не «дышат» друг относительно друга */
