@@ -487,6 +487,12 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
+  /* clip, а НЕ hidden: обрезает декоративное свечение и убирает
+     горизонтальную прокрутку, но не создаёт скролл-контейнер —
+     иначе ломается position: sticky у .hero-copy.
+     clip-path тут не подходит: он обрезает отрисовку, но не убирает
+     область прокрутки — документ всё равно шире вьюпорта. */
+  overflow-x: clip;
   padding: 76px 0 96px;
 }
 .hero::before {
