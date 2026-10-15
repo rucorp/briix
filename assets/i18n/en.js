@@ -45,6 +45,7 @@ window.I18N = {
         posts: [
           {
             tag: 'Expert', chip: 'Tip of the week', dark: true, art: ['#2C3A35', '#5C7066'],
+          img: '../assets/img/demo/nordhavn-1.jpg',
             artTitle: '5 questions<br>for your architect',
             title: 'How to choose an architect: 5 questions for the first meeting',
             caption: '5 questions worth asking your architect before the project starts 👇\n\n1. How do you make decisions about materials?\n2. Who runs the project on site?\n3. What does site supervision include?\n4. How do approvals work?\n5. Can we see finished projects?\n\nSave this — and bring these questions to your first meeting with us 🤍',
@@ -55,6 +56,7 @@ window.I18N = {
           },
           {
             tag: 'Case study', chip: 'Case study', dark: true, art: ['#C9A46A', '#E8D5B0'],
+          img: '../assets/img/demo/nordhavn-2.jpg',
             artTitle: 'Apartment<br>by the fjord',
             title: 'Case study: a 120 m² apartment by the fjord in 8 months',
             caption: 'We have finished a project by the water: 120 m², 8 months from the first sketch to the final shot 🌊\n\nThe brief — as much light as possible, natural materials and a sense of calm. The answer — an open layout, warm oak and panoramic windows that work as the main “decor”.\n\nMore photos of the project are in the carousel and on the studio site.',
@@ -65,6 +67,7 @@ window.I18N = {
           },
           {
             tag: 'Behind the scenes', chip: 'Inside', dark: true, art: ['#7D8F7C', '#B5C2B1'],
+          img: '../assets/img/demo/nordhavn-3.jpg',
             artTitle: 'Materials<br>for the project',
             title: 'Behind the scenes: how we select materials',
             caption: 'This is what material selection looks like before a design exists 👀\n\nSamples, natural textures, dozens of versions of one shade — because everyone’s “warm grey” is different.\n\nWe show this process so you can see: a calm interior is made of hundreds of precise decisions.',
@@ -75,6 +78,7 @@ window.I18N = {
           },
           {
             tag: 'FAQ', chip: 'FAQ', dark: true, art: ['#1C2420', '#3F5248'],
+          img: '../assets/img/demo/nordhavn-4.jpg',
             artTitle: 'How long<br>a project takes',
             title: 'FAQ: how long does a project take?',
             caption: 'One of the most common questions — how long does a project take? 📋\n\nThe honest answer: it depends on the area and the brief. On average — from 3 months for the design, plus several more months for implementation.\n\nWe fix the stages and timelines in the work plan — so you always know what is happening and when. Calm is part of the result.',
@@ -85,6 +89,7 @@ window.I18N = {
           },
           {
             tag: 'Reviews', chip: 'Review', dark: true, art: ['#F4F1EA', '#DDD4C2'],
+          img: '../assets/img/demo/nordhavn-5.jpg',
             artTitle: '“We got the<br>home of our dreams”',
             title: 'Review: “We got the home of our dreams”',
             caption: '“We got the home of our dreams — and the process was pleasant too” — that is how clients describe working with us 🤍\n\nFor us this is the main measure: the interior matters, but how you feel during the project matters even more.\n\nThank you for trusting us with your spaces.',
@@ -95,6 +100,7 @@ window.I18N = {
           },
           {
             tag: 'Announcement', chip: 'Announcement', dark: true, art: ['#A4552F', '#D78B5C'],
+          img: '../assets/img/demo/nordhavn-6.jpg',
             artTitle: 'Open house<br>day',
             title: 'Announcement: the studio’s open house day',
             caption: 'On October 26 we are opening the studio doors 🗓\n\nWe will show new projects, answer questions about the design process and help with the first steps of your future interior.\n\nEntrance is free, places are limited — sign up in messages.',

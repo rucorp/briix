@@ -113,6 +113,7 @@
   --accent-ink: #2e1a9e;
   --accent-border: rgba(83, 56, 242, 0.35);
   --accent-ring: rgba(83, 56, 242, 0.14);
+  --danger-ring: rgba(194, 65, 12, 0.14);
   --on-accent: #ffffff;
 
   /* status */
@@ -165,6 +166,7 @@
 
   /* art — client content and mockups, NOT recolored by the theme */
   --art-card: #ffffff;
+  --art-scrim: linear-gradient(180deg, rgba(28, 22, 18, 0) 0%, rgba(28, 22, 18, 0.22) 45%, rgba(28, 22, 18, 0.58) 100%);
   --art-ink: #171310;
   --art-title-ink: #ffffff;
   --art-glass: rgba(255, 255, 255, 0.22);
@@ -260,6 +262,7 @@
   --accent-ink: #cfc3ff;
   --accent-border: rgba(165, 148, 255, 0.45);
   --accent-ring: rgba(165, 148, 255, 0.22);
+  --danger-ring: rgba(255, 157, 122, 0.22);
   --on-accent: #14100c;
 
   --ok: #7fe6ac;
@@ -460,18 +463,19 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
   transition: border-color 0.25s ease, background 0.25s ease;
 }
 .site-header.scrolled { border-bottom-color: var(--line); background: var(--header-bg-solid); }
-.header-inner { height: var(--header-h); display: flex; align-items: center; gap: 32px; }
+.header-inner { height: var(--header-h); display: flex; align-items: center; gap: 24px; }
 
-.logo { display: inline-flex; align-items: center; gap: 11px; font-family: var(--font-display); font-weight: 800; font-size: 21px; letter-spacing: -0.03em; }
+.logo { display: inline-flex; align-items: center; gap: 11px; font-family: var(--font-display); font-weight: 800; font-size: 21px; letter-spacing: -0.03em; white-space: nowrap; flex: none; }
 .logo-mark { width: 34px; height: 34px; flex: none; }
 
 .nav { display: flex; align-items: center; gap: 6px; margin-left: 12px; }
 .nav a {
   padding: 9px 14px; border-radius: 999px; font-size: 15px; font-weight: 550; color: var(--ink-2);
+  white-space: nowrap;
   transition: color 0.15s ease, background 0.15s ease;
 }
 .nav a:hover { color: var(--ink); background: var(--hover-bg); }
-.header-cta { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+.header-cta { margin-left: auto; display: flex; align-items: center; gap: 10px; flex: none; }
 .header-cta .btn { padding: 11px 22px; font-size: 15px; }
 
 .burger { display: none; width: 44px; height: 44px; border-radius: 12px; align-items: center; justify-content: center; }
@@ -567,7 +571,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 .demo-head .url-chip {
   flex: 1; min-width: 0;
   display: flex; align-items: center; gap: 8px;
-  background: var(--bg); border: 1px solid var(--line); border-radius: 999px;
+  background: var(--card); border: 1px solid var(--line); border-radius: 999px;
   padding: 7px 14px; font-size: 13px; color: var(--ink-3); font-weight: 550;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
@@ -587,7 +591,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .url-input-wrap:focus-within { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-ring); }
-.url-input-wrap.error { border-color: var(--danger); box-shadow: 0 0 0 4px var(--ok-soft); }
+.url-input-wrap.error { border-color: var(--danger); box-shadow: 0 0 0 4px var(--danger-ring); }
 .url-input-wrap svg { width: 18px; height: 18px; color: var(--ink-3); flex: none; }
 .url-form input {
   flex: 1; min-width: 0; border: 0; outline: none; background: none;
@@ -675,6 +679,18 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 }
 /* mini post art (client content — always “light” art) */
 .pm-art { position: absolute; inset: 0; }
+.pm-art .pa-img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.pm-art.has-img::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 55%;
+  background: var(--art-scrim); pointer-events: none;
+}
+/* поверх фото: без «блобов», заголовок всегда светлым по скриму */
+.pm-art.has-img .pa-blob { display: none; }
+.pm-art.has-img .pa-title, .pm-art.has-img .pa-title.dark { color: var(--art-title-ink); }
+.pm-art.has-img .pa-chip.dark { background: var(--art-glass); color: var(--art-title-ink); }
 .pm-art .pa-blob { position: absolute; border-radius: 50%; filter: blur(2px); opacity: 0.85; background: var(--art-glass); }
 .pm-art .pa-title {
   position: absolute; left: 12px; right: 12px; bottom: 12px;
@@ -717,7 +733,7 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
 
 .demo-footer {
   display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;
-  padding: 16px 22px; border-top: 1px solid var(--line); background: var(--bg);
+  padding: 16px 22px; border-top: 1px solid var(--line); background: var(--surface-alt);
 }
 .demo-footer .note { font-size: 12.5px; color: var(--ink-3); }
 .demo-footer .btn { padding: 12px 20px; font-size: 14.5px; }
@@ -1621,9 +1637,9 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
   .demo-modal-grid { grid-template-columns: 1fr; }
   .pm-visual { padding: 18px; }
 }
-@media (max-width: 760px) {
-  body { font-size: 16px; }
-  .section { padding: 72px 0; }
+/* Шапка: полный набор (навигация + CTA + переключатели) требует ~1225px (RU).
+   Ниже 1280px схлопываем в бургер, иначе пункты наезжают друг на друга. */
+@media (max-width: 1279px) {
   .nav, .header-cta .btn-ghost { display: none; }
   .nav.open {
     display: flex;
@@ -1632,7 +1648,12 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
     background: var(--card); border-bottom: 1px solid var(--line);
     padding: 12px 16px 18px;
   }
+  .nav.open a { white-space: nowrap; }
   .burger { display: inline-flex; }
+}
+@media (max-width: 760px) {
+  body { font-size: 16px; }
+  .section { padding: 72px 0; }
   .hero { padding: 48px 0 64px; }
   .hero h1 { font-size: 36px; }
   .hero-sub { font-size: 17px; }

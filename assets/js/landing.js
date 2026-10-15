@@ -193,7 +193,8 @@
         <article class="post-mini" tabindex="0" role="button" data-post-index="${i}" aria-label="${UI.openPost}${post.title.replace(/"/g, '')}">
           <div class="pm-canvas">
             <span class="wm">${UI.watermark}</span>
-            <div class="pm-art" style="background:linear-gradient(${140 + i * 23}deg, ${bg1}, ${bg2})">
+            <div class="pm-art${post.img ? ' has-img' : ''}" style="background:linear-gradient(${140 + i * 23}deg, ${bg1}, ${bg2})">
+              ${post.img ? `<img class="pa-img" src="${post.img}" alt="" loading="lazy">` : ''}
               <div class="pa-blob" style="width:70px;height:70px;top:${-12 + i * 4}px;right:${-16 + i * 3}px"></div>
               <div class="pa-blob" style="width:44px;height:44px;bottom:${28 + i * 2}px;left:${-10}px"></div>
               <span class="pa-chip${post.dark ? ' dark' : ''}">${post.chip}</span>
@@ -240,7 +241,8 @@
     };
     if (modalArt) {
       modalArt.innerHTML = `
-        <div class="pm-art-big pm-art" style="background:linear-gradient(150deg, ${modalPost.art[0]}, ${modalPost.art[1]})">
+        <div class="pm-art-big pm-art${modalPost.img ? ' has-img' : ''}" style="background:linear-gradient(150deg, ${modalPost.art[0]}, ${modalPost.art[1]})">
+          ${modalPost.img ? `<img class="pa-img" src="${modalPost.img}" alt="" loading="lazy">` : ''}
           <div class="pa-blob" style="width:120px;height:120px;top:-24px;right:-20px"></div>
           <div class="pa-blob" style="width:80px;height:80px;bottom:40px;left:-24px"></div>
           <span class="pa-chip${modalPost.dark ? ' dark' : ''}">${modalPost.chip}</span>
